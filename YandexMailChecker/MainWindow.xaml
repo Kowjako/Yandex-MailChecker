@@ -11,6 +11,12 @@
             <Setter Property="FontFamily" Value="Rockwell"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
+        <Style x:Key="imageStyle" TargetType="Image">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="Width" Value="60"/>
+        </Style>
     </Window.Resources>
     <Border BorderBrush="Purple" BorderThickness="0.7">
         <Grid>
@@ -22,11 +28,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <DockPanel x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="2" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
-                <TextBlock Height="20" Margin="8" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
-                
-                
+                <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
+                <Image x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
+                <Image x:Name="catalogueBtn"  Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             </DockPanel>
         </Grid>
     </Border>
