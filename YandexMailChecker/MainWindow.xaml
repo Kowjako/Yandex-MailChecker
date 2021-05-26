@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <DockPanel x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="2" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
+            <DockPanel Background="Transparent" x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="2" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
                 <Image x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
