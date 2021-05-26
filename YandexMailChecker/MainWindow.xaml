@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YandexMailChecker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="700" Width="1300" WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="textBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Rockwell"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderBrush="Purple" BorderThickness="0.7">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+                <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
+                <TextBlock Height="20" Margin="8" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
+                
+                
+            </DockPanel>
+        </Grid>
+    </Border>
 </Window>
