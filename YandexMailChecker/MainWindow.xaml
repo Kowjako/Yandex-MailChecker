@@ -25,14 +25,46 @@
                 <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="2.3*"/>
             </Grid.ColumnDefinitions>
-            <DockPanel Background="Transparent" x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="2" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
+            <DockPanel Background="Transparent" x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="3" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
                 <Image x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
                 <Image x:Name="catalogueBtn"  Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
+            </DockPanel>
+            <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
+                <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
+                <TextBlock DockPanel.Dock="Top" Text="Menu" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                <StackPanel DockPanel.Dock="Bottom"/>
+            </DockPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="Statistics" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Width="190">
+                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts loaded:"/>
+                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts checked:"/>
+                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts with filter:"/>
+                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Validate accounts:"/>
+                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Bad accounts:"/>
+                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
+                <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
+                <TextBlock DockPanel.Dock="Top" Text="Data" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                <StackPanel DockPanel.Dock="Bottom"/>
             </DockPanel>
         </Grid>
     </Border>
