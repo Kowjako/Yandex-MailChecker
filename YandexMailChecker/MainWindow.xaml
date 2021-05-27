@@ -15,10 +15,18 @@
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="DockPanel.Dock" Value="Right"/>
-            <Setter Property="Width" Value="60"/>
+            <Setter Property="Width" Value="40"/>
         </Style>
     </Window.Resources>
-    <Border BorderBrush="Purple" BorderThickness="0.7">
+    <Border BorderThickness="2">
+        <Border.BorderBrush>
+            <LinearGradientBrush>
+                <GradientStop Color="Red" Offset="0" />
+                <GradientStop Color="Blue" Offset="1" />
+                <GradientStop Color="Green" Offset="2" />
+                <GradientStop Color="Yellow" Offset="3" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -32,9 +40,9 @@
             <DockPanel Background="Transparent" x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="3" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
-                <Image x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
-                <Image x:Name="catalogueBtn"  Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             </DockPanel>
+            <Image HorizontalAlignment="Right" Margin="0,0,5,0" Grid.Column="2" x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock DockPanel.Dock="Top" Text="Menu" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
@@ -44,12 +52,12 @@
                 <TextBlock Text="Statistics" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Width="190">
-                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts loaded:"/>
-                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts checked:"/>
-                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts with filter:"/>
-                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Validate accounts:"/>
-                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Bad accounts:"/>
-                        <TextBlock Margin="10,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts loaded:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts checked:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts with filter:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Validate accounts:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Bad accounts:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
@@ -60,6 +68,7 @@
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
                     </StackPanel>
                 </StackPanel>
+                <TextBlock Text="Filters" Margin="0,15,0,0" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
             </StackPanel>
             <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
                 <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
