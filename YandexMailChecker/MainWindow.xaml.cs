@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -28,6 +29,7 @@ namespace YandexMailChecker
         {
             DirectoryInfo outputDirectory = new DirectoryInfo(path);
             if (!outputDirectory.Exists) outputDirectory.Create();
+            Process.Start("explorer.exe", path);
         }
 
         private void headerPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
