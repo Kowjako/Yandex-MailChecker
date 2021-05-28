@@ -89,6 +89,10 @@
                 <WrapPanel Margin="10,10,10,0" x:Name="filterPanel" Height="295">
                 </WrapPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                <Grid>
+                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="0" Height="25" />
+                    <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat=' {0} %'}" Margin="0,13,0,0" TextAlignment="Center" Foreground="White" Background="Transparent"/>
+                </Grid>
             </StackPanel>
             <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
                 <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
