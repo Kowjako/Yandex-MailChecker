@@ -51,26 +51,52 @@
             </DockPanel>
             <Image HorizontalAlignment="Right" Margin="0,0,5,0" Grid.Column="2" x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
-            <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
+            <DockPanel Grid.Row="1" Grid.Column="0">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock Text="Menu" HorizontalAlignment="Center" Margin="0,10,15,5" Style="{StaticResource textBlockStyle}"/>
                     <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
-                <StackPanel>
+                <StackPanel DockPanel.Dock="Top">
                     <TextBlock DockPanel.Dock="Top" Text="Verify your account" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
                         </Border>
-                        <TextBox x:Name="loginBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                        <TextBox x:Name="loginBox" Text="" Width="290" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Key" />
                         </Border>
-                        <TextBox x:Name="passwordBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                        <PasswordBox x:Name="passwordBox" Width="290" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
+                    <Button Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
+                    <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock DockPanel.Dock="Top" Text="Let's start" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
+                    <Button Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                    <Button Margin="10,16,10,0" Background="CornflowerBlue" BorderBrush="CornflowerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Contact with developer " />
+                    <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                    <Expander HorizontalAlignment="Stretch">
+                        <Expander.Header>
+                            <TextBlock Style="{StaticResource textBlockStyle}" Text="How to use this?"/>
+                        </Expander.Header>
+                        <StackPanel
+        Orientation="Vertical"
+        TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+        Margin="24,8,24,16">
+                            <TextBlock
+          Text="Your Content" />
+
+                        </StackPanel>
+                    </Expander>
                 </StackPanel>
             </DockPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
@@ -107,7 +133,7 @@
                 </WrapPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 <Grid>
-                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="0" Height="25" />
+                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="30" Height="25" />
                     <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat=' {0} %'}" Margin="0,13,0,0" TextAlignment="Center" Foreground="White" Background="Transparent"/>
                 </Grid>
             </StackPanel>
