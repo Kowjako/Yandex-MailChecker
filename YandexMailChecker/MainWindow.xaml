@@ -23,13 +23,16 @@
             <Setter Property="Width" Value="40"/>
         </Style>
     </Window.Resources>
-    <Border BorderThickness="2">
+    <Border BorderThickness="3">
         <Border.BorderBrush>
             <LinearGradientBrush>
                 <GradientStop Color="Red" Offset="0" />
-                <GradientStop Color="Blue" Offset="1" />
-                <GradientStop Color="Green" Offset="2" />
-                <GradientStop Color="Yellow" Offset="3" />
+                <GradientStop Color="Blue" Offset="0.5" />
+                <GradientStop Color="Green" Offset="1" />
+                <GradientStop Color="Yellow" Offset="1.5" />
+                <GradientStop Color="Purple" Offset="2"/>
+                <GradientStop Color="Cyan" Offset="2.5" />
+                <GradientStop Color="Orange" Offset="3" />
             </LinearGradientBrush>
         </Border.BorderBrush>
         <Grid>
