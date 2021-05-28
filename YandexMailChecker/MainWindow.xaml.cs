@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using MaterialDesignThemes.Wpf;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -35,6 +36,19 @@ namespace YandexMailChecker
         private void headerPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void addFilterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filterBox.Text)) return;
+            Chip newFilter = new Chip() { IsDeletable = true, Content = filterBox.Text, Margin = new Thickness(0,10,10,0)};
+            newFilter.DeleteClick += NewFilter_DeleteClick;
+            filterPanel.Children.Add(newFilter);
+        }
+
+        private void NewFilter_DeleteClick(object sender, RoutedEventArgs e)
+        {
+            filterPanel.Children.Remove((Chip)sender);
         }
     }
 }
