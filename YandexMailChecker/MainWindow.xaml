@@ -53,8 +53,25 @@
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
-                <TextBlock DockPanel.Dock="Top" Text="Menu" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                <StackPanel DockPanel.Dock="Bottom"/>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="Menu" HorizontalAlignment="Center" Margin="0,10,15,5" Style="{StaticResource textBlockStyle}"/>
+                    <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Verify your account" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
+                            <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
+                        </Border>
+                        <TextBox x:Name="loginBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">
+                            <materialDesign:PackIcon Height="30" Width="30" Kind="Key" />
+                        </Border>
+                        <TextBox x:Name="passwordBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                </StackPanel>
             </DockPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
                 <TextBlock Text="Statistics" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
