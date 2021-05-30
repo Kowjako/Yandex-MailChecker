@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MaterialDesignThemes.Wpf;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace YandexMailChecker
 {
@@ -20,9 +13,42 @@ namespace YandexMailChecker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string path = @"D:\YandexMailChecker\";
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void closeBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Thread.Sleep(100);
+            this.Close();
+        }
+
+        private void catalogueBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DirectoryInfo outputDirectory = new DirectoryInfo(path);
+            if (!outputDirectory.Exists) outputDirectory.Create();
+            Process.Start("explorer.exe", path);
+        }
+
+        private void headerPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void addFilterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filterBox.Text)) return;
+            Chip newFilter = new Chip() { IsDeletable = true, Content = filterBox.Text, Margin = new Thickness(0,10,10,0)};
+            newFilter.DeleteClick += NewFilter_DeleteClick;
+            filterPanel.Children.Add(newFilter);
+        }
+
+        private void NewFilter_DeleteClick(object sender, RoutedEventArgs e)
+        {
+            filterPanel.Children.Remove((Chip)sender);
         }
     }
 }

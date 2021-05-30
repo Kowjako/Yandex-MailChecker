@@ -1,32 +1,172 @@
 ﻿<Window x:Class="YandexMailChecker.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YandexMailChecker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1300" WindowStyle="None" ResizeMode="NoResize">
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Title="MainWindow" Height="700" Width="1500" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="textBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Rockwell"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
+        <Style x:Key="imageStyle" TargetType="Image">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="Width" Value="40"/>
+        </Style>
+        <Style x:Key="cellStyle" TargetType="DataGridCell">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Rockwell"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="{Binding ElementName=lgbtBrush}"/>
+                    <Setter Property="BorderThickness" Value="1.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    <Border BorderBrush="Purple" BorderThickness="0.7">
+    <Border BorderThickness="3">
+        <Border.BorderBrush>
+            <LinearGradientBrush x:Name="lgbtBrush">
+                <GradientStop Color="Red" Offset="0" />
+                <GradientStop Color="Blue" Offset="0.5" />
+                <GradientStop Color="Green" Offset="1" />
+                <GradientStop Color="Yellow" Offset="1.5" />
+                <GradientStop Color="Purple" Offset="2"/>
+                <GradientStop Color="Cyan" Offset="2.5" />
+                <GradientStop Color="Orange" Offset="3" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="2.3*"/>
             </Grid.ColumnDefinitions>
-            <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <DockPanel Background="Transparent" x:Name="headerPanel" Grid.Row="0" Grid.ColumnSpan="3" LastChildFill="False" MouseLeftButtonDown="headerPanel_MouseLeftButtonDown">
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
-                <TextBlock Height="20" Margin="8" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
-                
-                
+                <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
+            </DockPanel>
+            <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
+            <DockPanel Grid.Row="1" Grid.Column="0">
+                <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="Menu" HorizontalAlignment="Center" Margin="0,10,15,5" Style="{StaticResource textBlockStyle}"/>
+                    <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock DockPanel.Dock="Top" Text="Verify your account" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
+                            <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
+                        </Border>
+                        <TextBox x:Name="loginBox" Text="" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">
+                            <materialDesign:PackIcon Height="30" Width="30" Kind="Key" />
+                        </Border>
+                        <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                    <Button Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
+                    <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock DockPanel.Dock="Top" Text="Let's start" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
+                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
+                    <Button Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                    <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom">
+                    <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" Text="How to reach me?"/>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <materialDesign:PackIcon Margin="45,0,28,0" Width="50" Height="50" Kind="Gmail" ToolTip="Send me a message"/>
+                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Facebook" ToolTip="Send me a message" />
+                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Instagram" ToolTip="Dm Me"/>
+                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Vk" ToolTip="Send me a message" />
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="Statistics" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Width="190">
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts loaded:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts checked:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts with filter:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Validate accounts:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Bad accounts:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                    </StackPanel>
+                </StackPanel>
+                <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                <TextBlock Text="Filters" Margin="0,15,0,10" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="filterBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
+                <Button x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
+                    </Button.Content>
+                </Button>
+                </StackPanel>
+                <WrapPanel Margin="10,10,10,0" x:Name="filterPanel" Height="295">
+                </WrapPanel>
+                <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
+                <Grid>
+                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="30" Height="25" />
+                    <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat=' {0} %'}" Margin="0,13,0,0" TextAlignment="Center" Foreground="White" Background="Transparent"/>
+                </Grid>
+            </StackPanel>
+            <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
+                <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
+                <TextBlock DockPanel.Dock="Top" Text="Data" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
+                <DataGrid ColumnWidth="*" Background="White" IsEnabled="True" Margin="4" x:Name="dataGrid" Grid.Column="1" ItemsSource="{Binding accountList}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserResizeColumns="True" CanUserResizeRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn CellStyle="{StaticResource cellStyle}"  Binding="{Binding Email}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="E-Mail" Style="{StaticResource textBlockStyle}"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn CellStyle="{StaticResource cellStyle}"  Binding="{Binding Password}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Password" Style="{StaticResource textBlockStyle}"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn CellStyle="{StaticResource cellStyle}" Binding="{Binding Filters}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Filters" Style="{StaticResource textBlockStyle}"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </DockPanel>
         </Grid>
     </Border>
