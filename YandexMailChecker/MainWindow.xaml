@@ -10,7 +10,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Title="MainWindow" Height="700" Width="1300" WindowStyle="None" ResizeMode="NoResize">
+        Title="MainWindow" Height="700" Width="1500" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="textBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Rockwell"/>
@@ -22,10 +22,23 @@
             <Setter Property="DockPanel.Dock" Value="Right"/>
             <Setter Property="Width" Value="40"/>
         </Style>
+        <Style x:Key="cellStyle" TargetType="DataGridCell">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Rockwell"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="{Binding ElementName=lgbtBrush}"/>
+                    <Setter Property="BorderThickness" Value="1.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Border BorderThickness="3">
         <Border.BorderBrush>
-            <LinearGradientBrush>
+            <LinearGradientBrush x:Name="lgbtBrush">
                 <GradientStop Color="Red" Offset="0" />
                 <GradientStop Color="Blue" Offset="0.5" />
                 <GradientStop Color="Green" Offset="1" />
@@ -49,7 +62,7 @@
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
             </DockPanel>
-            <Image HorizontalAlignment="Right" Margin="0,0,5,0" Grid.Column="2" x:Name="closeBtn" Style="{StaticResource imageStyle}" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             <DockPanel Grid.Row="1" Grid.Column="0">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
@@ -63,13 +76,13 @@
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
                         </Border>
-                        <TextBox x:Name="loginBox" Text="" Width="290" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                        <TextBox x:Name="loginBox" Text="" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Key" />
                         </Border>
-                        <PasswordBox x:Name="passwordBox" Width="290" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                        <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
                     <Button Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
@@ -87,10 +100,10 @@
                 <StackPanel DockPanel.Dock="Bottom">
                     <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" Text="How to reach me?"/>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                        <materialDesign:PackIcon Margin="45,0,10,0" Width="50" Height="50" Kind="Gmail" ToolTip="Send me a message"/>
-                        <materialDesign:PackIcon Margin="10,0,10,0" Width="50" Height="50" Kind="Facebook" ToolTip="Send me a message" />
-                        <materialDesign:PackIcon Margin="10,0,10,0" Width="50" Height="50" Kind="Instagram" ToolTip="Dm Me"/>
-                        <materialDesign:PackIcon Margin="10,0,10,0" Width="50" Height="50" Kind="Vk" ToolTip="Send me a message" />
+                        <materialDesign:PackIcon Margin="45,0,28,0" Width="50" Height="50" Kind="Gmail" ToolTip="Send me a message"/>
+                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Facebook" ToolTip="Send me a message" />
+                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Instagram" ToolTip="Dm Me"/>
+                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Vk" ToolTip="Send me a message" />
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
@@ -106,19 +119,19 @@
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="100" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Text="Filters" Margin="0,15,0,10" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="filterBox" Text="" Width="230" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
-                <Button x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left" ToolTip="MaterialDesignFloatingActionMiniButton">
+                <TextBox x:Name="filterBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
+                <Button x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
                     </Button.Content>
@@ -135,19 +148,19 @@
             <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
                 <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock DockPanel.Dock="Top" Text="Data" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                <DataGrid Background="White" IsEnabled="false" Margin="4" x:Name="dataGrid" Grid.Column="1" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+                <DataGrid ColumnWidth="*" Background="White" IsEnabled="True" Margin="4" x:Name="dataGrid" Grid.Column="1" ItemsSource="{Binding accountList}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserResizeColumns="True" CanUserResizeRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="170">
+                        <DataGridTextColumn CellStyle="{StaticResource cellStyle}"  Binding="{Binding Email}">
                             <DataGridTextColumn.Header>
                                 <TextBlock Text="E-Mail" Style="{StaticResource textBlockStyle}"/>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Width="200">
+                        <DataGridTextColumn CellStyle="{StaticResource cellStyle}"  Binding="{Binding Password}">
                             <DataGridTextColumn.Header>
                                 <TextBlock Text="Password" Style="{StaticResource textBlockStyle}"/>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Width="150">
+                        <DataGridTextColumn CellStyle="{StaticResource cellStyle}" Binding="{Binding Filters}">
                             <DataGridTextColumn.Header>
                                 <TextBlock Text="Filters" Style="{StaticResource textBlockStyle}"/>
                             </DataGridTextColumn.Header>
