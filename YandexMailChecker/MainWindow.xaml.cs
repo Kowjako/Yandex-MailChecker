@@ -1,4 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -13,11 +15,19 @@ namespace YandexMailChecker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Account> accountList { get; set; }
+
         private string path = @"D:\YandexMailChecker\";
 
         public MainWindow()
         {
             InitializeComponent();
+            accountList = new ObservableCollection<Account>();
+            accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
+            accountList.Add(new Account("andreypevniy@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
+            accountList.Add(new Account("leanidp@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Beverly Hills" }));
+            accountList.Add(new Account("rager13@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "BruteForce" }));
+            DataContext = this;
         }
 
         private void closeBtn_MouseUp(object sender, MouseButtonEventArgs e)
