@@ -90,7 +90,7 @@
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock DockPanel.Dock="Top" Text="Let's start" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
                     <Button Command="{Binding TestConnectionCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
+                    <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
                     <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
                     <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
                     <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />

@@ -82,6 +82,7 @@ namespace YandexMailChecker
                                     while ((record = reader.ReadLine()) != null)
                                         loadedAccountList.Add(new Account(record.Split(' ')[0], record.Split(' ')[1], null));
                                 }
+                                OnPropertyChanged("LoadedAccountsCount");   //po wczytaniu musimy poinformowac View ze zmienil sie parametr LoadedAccountsCount
                             }
                         }
                         catch(Exception ex)
