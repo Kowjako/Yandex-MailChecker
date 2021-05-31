@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -9,13 +11,22 @@ namespace YandexMailChecker
 {
     class ApplicationViewModel : INotifyPropertyChanged
     {
+        public string LoadedAccountsCount
+        {
+            get { return Convert.ToString(loadedAccountList == null ? 0 : loadedAccountList.Count); }
+        }
+
+        private List<Account> loadedAccountList { get; set; }
+
         public ObservableCollection<Account> accountList { get; set; }
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
         private RelayCommand loadDatabaseCommand;
+        protected IDialogService dialogService;
 
-        public ApplicationViewModel()
+        public ApplicationViewModel(IDialogService dialogService)
         {
+            this.dialogService = dialogService;
             accountList = new ObservableCollection<Account>();
             accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
             accountList.Add(new Account("andreypevniy@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
@@ -60,8 +71,23 @@ namespace YandexMailChecker
                 return loadDatabaseCommand ??
                     (loadDatabaseCommand = new RelayCommand(obj =>
                     {
-
-
+                        try
+                        {
+                            if(dialogService.OpenFileDialog() == true)
+                            {
+                                string record;
+                                loadedAccountList = new List<Account>();
+                                using (StreamReader reader = new StreamReader(dialogService.FilePath))
+                                {
+                                    while ((record = reader.ReadLine()) != null)
+                                        loadedAccountList.Add(new Account(record.Split(' ')[0], record.Split(' ')[1], null));
+                                }
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            dialogService.ShowMessage(ex.Message);
+                        }
                     }));
             }
         }
