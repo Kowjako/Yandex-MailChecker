@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace YandexMailChecker
 {
-    class ApplicationViewModel
+    class ApplicationViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Account> accountList { get; set; }
+        private RelayCommand addAccountCommand;
+        private RelayCommand testConnectionCommand;
 
         public ApplicationViewModel()
         {
@@ -21,5 +22,38 @@ namespace YandexMailChecker
             accountList.Add(new Account("rager13@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "BruteForce" }));
         }
 
+        public RelayCommand AddAccountCommand
+        {
+            get
+            {
+                return addAccountCommand ??
+                    (addAccountCommand = new RelayCommand(obj =>
+                    {
+                        Account acc = obj as Account;
+                        accountList.Add(acc);
+                    }));
+            }
+        }
+
+        public RelayCommand TestConnectionCommand
+        {
+            get
+            {
+                return testConnectionCommand ??
+                    (testConnectionCommand = new RelayCommand(obj =>
+                    {
+                        Ping p = new Ping();
+                        PingReply reply = p.Send("google.com", 1000, new byte[255], new PingOptions());
+                        MessageBox.Show($"Connection with Intenet: {reply.Status == IPStatus.Success}");
+                    }));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }
