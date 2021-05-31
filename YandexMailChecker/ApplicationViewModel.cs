@@ -44,7 +44,10 @@ namespace YandexMailChecker
                     {
                         Ping p = new Ping();
                         PingReply reply = p.Send("google.com", 1000, new byte[255], new PingOptions());
-                        MessageBox.Show($"Connection with Intenet: {reply.Status == IPStatus.Success}");
+                    if (reply.Status == IPStatus.Success) 
+                        MessageBox.Show($"Connection with the Internet: Connected!","Connection verifying",MessageBoxButton.OK,MessageBoxImage.Information);
+                    else
+                        MessageBox.Show($"Connection with the Internet: Not connected", "Connection verifying", MessageBoxButton.OK, MessageBoxImage.Information);
                     }));
             }
         }
