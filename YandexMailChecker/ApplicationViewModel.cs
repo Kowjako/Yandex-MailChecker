@@ -12,6 +12,7 @@ namespace YandexMailChecker
         public ObservableCollection<Account> accountList { get; set; }
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
+        private RelayCommand loadDatabaseCommand;
 
         public ApplicationViewModel()
         {
@@ -48,6 +49,19 @@ namespace YandexMailChecker
                         MessageBox.Show($"Connection with the Internet: Connected!","Connection verifying",MessageBoxButton.OK,MessageBoxImage.Information);
                     else
                         MessageBox.Show($"Connection with the Internet: Not connected", "Connection verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }));
+            }
+        }
+
+        public RelayCommand LoadDatabaseCommand
+        {
+            get
+            {
+                return loadDatabaseCommand ??
+                    (loadDatabaseCommand = new RelayCommand(obj =>
+                    {
+
+
                     }));
             }
         }
