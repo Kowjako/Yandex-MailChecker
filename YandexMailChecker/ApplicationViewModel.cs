@@ -17,6 +17,7 @@ namespace YandexMailChecker
         }
 
         private List<Account> loadedAccountList { get; set; }
+        private List<Proxy> loadedProxyList { get; set; }
 
         public ObservableCollection<Account> accountList { get; set; }
 
@@ -24,6 +25,7 @@ namespace YandexMailChecker
         private RelayCommand testConnectionCommand;
         private RelayCommand loadDatabaseCommand;
         private RelayCommand changeSeparatorsCommand;
+        private RelayCommand loadProxiesCommand;
 
         protected IDialogService dialogService;
 
@@ -131,6 +133,35 @@ namespace YandexMailChecker
             }
         }
 
+
+        public RelayCommand LoadProxiesCommand
+        {
+            get
+            {
+                return loadProxiesCommand ??
+                    (loadProxiesCommand = new RelayCommand(obj =>
+                    {
+                        try
+                        {
+                            if (dialogService.OpenFileDialog() == true)
+                            {
+                                string record;
+                                loadedProxyList = new List<Proxy>();
+                                using (StreamReader reader = new StreamReader(dialogService.FilePath))
+                                {
+                                    while ((record = reader.ReadLine()) != null)
+                                        loadedProxyList.Add(new Proxy(record.Split(' ')[0], record.Split(' ')[1]));
+                                }
+                                dialogService.ShowMessage($"{loadedProxyList.Count} proxies was loaded successfully");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            dialogService.ShowMessage(ex.Message);
+                        }
+                    }));
+            }
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

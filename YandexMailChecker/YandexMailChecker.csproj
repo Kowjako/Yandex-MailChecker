@@ -67,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="DefaultDialogService.cs" />
     <Compile Include="IDialogService.cs" />
+    <Compile Include="Proxy.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
