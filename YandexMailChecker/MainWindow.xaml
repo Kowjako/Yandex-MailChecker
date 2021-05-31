@@ -119,7 +119,7 @@
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding LoadedAccountsCount}" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
