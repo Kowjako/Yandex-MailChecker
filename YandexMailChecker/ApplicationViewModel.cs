@@ -150,7 +150,7 @@ namespace YandexMailChecker
                                 using (StreamReader reader = new StreamReader(dialogService.FilePath))
                                 {
                                     while ((record = reader.ReadLine()) != null)
-                                        loadedProxyList.Add(new Proxy(record.Split(' ')[0], record.Split(' ')[1]));
+                                        loadedProxyList.Add(new Proxy(record.Split(':')[0], record.Split(':')[1]));
                                 }
                                 dialogService.ShowMessage($"{loadedProxyList.Count} proxies was loaded successfully");
                             }
