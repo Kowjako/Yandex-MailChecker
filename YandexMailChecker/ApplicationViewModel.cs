@@ -19,9 +19,12 @@ namespace YandexMailChecker
         private List<Account> loadedAccountList { get; set; }
 
         public ObservableCollection<Account> accountList { get; set; }
+
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
         private RelayCommand loadDatabaseCommand;
+        private RelayCommand changeSeparatorsCommand;
+
         protected IDialogService dialogService;
 
         public ApplicationViewModel(IDialogService dialogService)
@@ -84,8 +87,43 @@ namespace YandexMailChecker
                                 }
                                 OnPropertyChanged("LoadedAccountsCount");   //po wczytaniu musimy poinformowac View ze zmienil sie parametr LoadedAccountsCount
                             }
+                            dialogService.ShowMessage("Database was loaded successfully");
                         }
                         catch(Exception ex)
+                        {
+                            dialogService.ShowMessage(ex.Message);
+                        }
+                    }));
+            }
+        }
+
+        public RelayCommand ChangeSeparatorsCommand
+        {
+            get
+            {
+                return changeSeparatorsCommand ??
+                    (changeSeparatorsCommand = new RelayCommand(obj =>
+                    {
+                        char[] splitters = { ':', ',', '|' };
+                        string loadedFullText;
+                        try
+                        {
+                            if(dialogService.OpenFileDialog() == true)
+                            {
+                                using (StreamReader reader = new StreamReader(dialogService.FilePath))
+                                {
+                                    loadedFullText = reader.ReadToEnd();
+                                    foreach (char splitter in splitters)
+                                        loadedFullText = loadedFullText.Replace(splitter, ' ');
+                                }
+                                using (StreamWriter dataWriter = new StreamWriter(dialogService.FilePath, false))
+                                {
+                                    dataWriter.Write(loadedFullText);
+                                }
+                            }
+                            dialogService.ShowMessage("Splitters was changed");
+                        }
+                        catch (Exception ex)
                         {
                             dialogService.ShowMessage(ex.Message);
                         }
