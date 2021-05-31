@@ -22,7 +22,7 @@ namespace YandexMailChecker
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ApplicationViewModel();
+            DataContext = new ApplicationViewModel(new DefaultDialogService());
         }
 
         private void closeBtn_MouseUp(object sender, MouseButtonEventArgs e)
