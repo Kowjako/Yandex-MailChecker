@@ -86,8 +86,8 @@ namespace YandexMailChecker
                                         loadedAccountList.Add(new Account(record.Split(' ')[0], record.Split(' ')[1], null));
                                 }
                                 OnPropertyChanged("LoadedAccountsCount");   //po wczytaniu musimy poinformowac View ze zmienil sie parametr LoadedAccountsCount
+                                dialogService.ShowMessage("Database was loaded successfully");
                             }
-                            dialogService.ShowMessage("Database was loaded successfully");
                         }
                         catch(Exception ex)
                         {
@@ -120,8 +120,8 @@ namespace YandexMailChecker
                                 {
                                     dataWriter.Write(loadedFullText);
                                 }
+                                dialogService.ShowMessage("Splitters was changed");
                             }
-                            dialogService.ShowMessage("Splitters was changed");
                         }
                         catch (Exception ex)
                         {
