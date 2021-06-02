@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -173,16 +174,23 @@ namespace YandexMailChecker
             get
             {
                 return verifyAccountCommand ??
-                    (verifyAccountCommand = new RelayCommand(obj =>
+                    (verifyAccountCommand = new RelayCommand(async obj =>
                     {
+
                         testAccount.Password = (obj as PasswordBox).Password;       //PasswordBox wystepuje jako parametr Command we View
-                        if(testAccount.CheckEmail())
+                        if (testAccount.CheckEmail())
                         {
-                            if(testAccount.ValidateCredentials())
+                            try
                             {
+                                await Task.Run(() => {
+                                    testAccount.ValidateCredentials();
+                                });
                                 MessageBox.Show($"Successfully login with this credentials!", "Account verifying", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
-                            else MessageBox.Show($"Unfortunately canno't login with this credentials!", "Account verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                            catch(Exception ex)
+                            {
+                                MessageBox.Show($"Unfortunately canno't login with this credentials! {ex.Message}", "Account verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
                         }
                         else MessageBox.Show($"Please write correct e-mail address", "Email verifying", MessageBoxButton.OK, MessageBoxImage.Information);
                     }));

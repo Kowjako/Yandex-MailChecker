@@ -4,6 +4,7 @@ using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using AE.Net.Mail;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace YandexMailChecker
 {
@@ -53,18 +54,16 @@ namespace YandexMailChecker
             }
         }
 
-        public async bool ValidateCredentials()
+        public void ValidateCredentials()
         {
-            ImapClient imapClient = null;
+            MessageBox.Show($"START CHECKING {Login}, {Password}");
             try
             {
-                await { imapClient = new ImapClient("imap.yandex.ru", Login, Password, AuthMethods.Login, 993, true);
-                    return true;
-                }
+                ImapClient imapClient = new ImapClient("imap.yandex.ru", Login, Password, AuthMethods.Login, 993, true);
             }
-            catch(Exception)
+            catch (Exception ex)
             {
-                return false;
+                MessageBox.Show(ex.Message);
             }
         }
     }
