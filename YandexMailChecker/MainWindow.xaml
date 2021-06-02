@@ -84,7 +84,7 @@
                         </Border>
                         <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
-                    <Button Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
+                    <Button Command="{Binding VerifyAccountCommand}" Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top">

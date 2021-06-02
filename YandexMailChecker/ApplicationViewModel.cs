@@ -26,6 +26,7 @@ namespace YandexMailChecker
         private RelayCommand loadDatabaseCommand;
         private RelayCommand changeSeparatorsCommand;
         private RelayCommand loadProxiesCommand;
+        private RelayCommand verifyAccountCommand;
 
         protected IDialogService dialogService;
 
@@ -159,6 +160,18 @@ namespace YandexMailChecker
                         {
                             dialogService.ShowMessage(ex.Message);
                         }
+                    }));
+            }
+        }
+
+        public RelayCommand VerifyAccountCommand
+        {
+            get
+            {
+                return verifyAccountCommand ??
+                    (verifyAccountCommand = new RelayCommand(obj =>
+                    {
+                        
                     }));
             }
         }
