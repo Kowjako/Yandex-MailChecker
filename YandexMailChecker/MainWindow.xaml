@@ -76,7 +76,7 @@
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
                         </Border>
-                        <TextBox x:Name="loginBox" Text="" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                        <TextBox DataContext="{Binding testAccount}" Text="{Binding Login}" x:Name="loginBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">

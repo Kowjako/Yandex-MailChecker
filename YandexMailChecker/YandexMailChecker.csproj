@@ -69,6 +69,7 @@
     <Compile Include="IDialogService.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="TestAccount.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

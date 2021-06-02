@@ -19,6 +19,8 @@ namespace YandexMailChecker
         private List<Account> loadedAccountList { get; set; }
         private List<Proxy> loadedProxyList { get; set; }
 
+        public TestAccount testAccount { get; set; }
+
         public ObservableCollection<Account> accountList { get; set; }
 
         private RelayCommand addAccountCommand;
@@ -32,6 +34,7 @@ namespace YandexMailChecker
 
         public ApplicationViewModel(IDialogService dialogService)
         {
+            testAccount = new TestAccount();
             this.dialogService = dialogService;
             accountList = new ObservableCollection<Account>();
             accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
@@ -171,7 +174,12 @@ namespace YandexMailChecker
                 return verifyAccountCommand ??
                     (verifyAccountCommand = new RelayCommand(obj =>
                     {
-                        
+                        MessageBox.Show($"Login = {testAccount.Login}, pass = {testAccount.Password}");
+                        if(testAccount.CheckEmail())
+                        {
+
+                        }
+                        else MessageBox.Show($"Please write correct e-mail address", "Email verifying", MessageBoxButton.OK, MessageBoxImage.Information);
                     }));
             }
         }
