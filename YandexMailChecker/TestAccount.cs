@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using AE.Net.Mail;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace YandexMailChecker
 {
@@ -56,15 +57,7 @@ namespace YandexMailChecker
 
         public void ValidateCredentials()
         {
-            MessageBox.Show($"START CHECKING {Login}, {Password}");
-            try
-            {
-                ImapClient imapClient = new ImapClient("imap.yandex.ru", Login, Password, AuthMethods.Login, 993, true);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            ImapClient imapClient = new ImapClient("imap.yandex.ru", Login, Password, AuthMethods.Login, 993, true);
         }
     }
 }

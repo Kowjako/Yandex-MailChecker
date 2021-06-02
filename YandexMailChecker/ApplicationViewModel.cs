@@ -177,19 +177,19 @@ namespace YandexMailChecker
                     (verifyAccountCommand = new RelayCommand(async obj =>
                     {
 
-                        testAccount.Password = (obj as PasswordBox).Password;       //PasswordBox wystepuje jako parametr Command we View
+                        testAccount.Password = (obj as PasswordBox).Password;       //PasswordBox wystepuje jako parametr Command we View dla przycisku Verify application
                         if (testAccount.CheckEmail())
                         {
                             try
                             {
                                 await Task.Run(() => {
-                                    testAccount.ValidateCredentials();
+                                    testAccount.ValidateCredentials();              //jezeli nie uda sie logowanie to ValidateCredentials wyrzuci blad i catch ponizej przechywci.
                                 });
                                 MessageBox.Show($"Successfully login with this credentials!", "Account verifying", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
-                            catch(Exception ex)
+                            catch(Exception)
                             {
-                                MessageBox.Show($"Unfortunately canno't login with this credentials! {ex.Message}", "Account verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show($"Unfortunately canno't login with this credentials!", "Account verifying", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                         }
                         else MessageBox.Show($"Please write correct e-mail address", "Email verifying", MessageBoxButton.OK, MessageBoxImage.Information);
