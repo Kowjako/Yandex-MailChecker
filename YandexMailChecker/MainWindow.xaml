@@ -62,7 +62,7 @@
                 <Border DockPanel.Dock="Bottom" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Height="20" Margin="10" Style="{StaticResource textBlockStyle}" Text="Yandex Mail-Checker by @maybedot"/>
             </DockPanel>
-            <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Cursor="Hand" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             <DockPanel Grid.Row="1" Grid.Column="0">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
@@ -76,7 +76,7 @@
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
                         </Border>
-                        <TextBox x:Name="loginBox" Text="" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
+                        <TextBox DataContext="{Binding testAccount}" Text="{Binding Login}" x:Name="loginBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">
@@ -84,15 +84,15 @@
                         </Border>
                         <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
-                    <Button Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
+                    <Button Command="{Binding VerifyAccountCommand}" CommandParameter="{Binding ElementName=passwordBox}" Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock DockPanel.Dock="Top" Text="Let's start" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
+                    <Button Command="{Binding TestConnectionCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
+                    <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
+                    <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
+                    <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
                     <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
                     <Button Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
@@ -119,7 +119,7 @@
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding LoadedAccountsCount}" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                         <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>

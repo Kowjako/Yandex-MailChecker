@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YandexMailChecker
 {
-    class Account
+    public class Account
     {
         private List<string> filters;
         private string email;
@@ -14,7 +14,18 @@ namespace YandexMailChecker
 
         public string Email => email;
         public string Password => password;
-        public List<string> Filters => filters;
+        public string Filters
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                string[] stringFilter = filters.ToArray();
+                for (int i = 0; i < stringFilter.Length-1; i++)
+                    sb.Append(stringFilter[i] + ", ");
+                sb.Append(stringFilter[stringFilter.Length - 1]);
+                return sb.ToString();
+            }
+        }
 
         public Account(string email, string password, List<string> filters)
         { 

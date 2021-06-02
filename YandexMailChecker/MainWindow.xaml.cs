@@ -1,4 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -13,11 +15,14 @@ namespace YandexMailChecker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Account> accountList { get; set; }
+
         private string path = @"D:\YandexMailChecker\";
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ApplicationViewModel(new DefaultDialogService());
         }
 
         private void closeBtn_MouseUp(object sender, MouseButtonEventArgs e)
