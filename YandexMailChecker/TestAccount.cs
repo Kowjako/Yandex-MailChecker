@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Net.Mail;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using AE.Net.Mail;
+using System.Windows;
 
 namespace YandexMailChecker
 {
@@ -55,9 +53,19 @@ namespace YandexMailChecker
             }
         }
 
-        public bool ValidateCredentials()
+        public async bool ValidateCredentials()
         {
-            return false;
+            ImapClient imapClient = null;
+            try
+            {
+                await { imapClient = new ImapClient("imap.yandex.ru", Login, Password, AuthMethods.Login, 993, true);
+                    return true;
+                }
+            }
+            catch(Exception)
+            {
+                return false;
+            }
         }
     }
 }
