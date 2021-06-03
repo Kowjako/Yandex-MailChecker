@@ -33,5 +33,6 @@ namespace YandexMailChecker
             this.password = password;
             this.filters = filters;
         }
+
     }
 }

@@ -31,6 +31,7 @@ namespace YandexMailChecker
         private RelayCommand changeSeparatorsCommand;
         private RelayCommand loadProxiesCommand;
         private RelayCommand verifyAccountCommand;
+        private RelayCommand contactCommand;
 
         protected IDialogService dialogService;
 

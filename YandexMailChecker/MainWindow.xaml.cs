@@ -55,5 +55,33 @@ namespace YandexMailChecker
         {
             filterPanel.Children.Remove((Chip)sender);
         }
+
+        private void gmail_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("gmail");
+            contactWindow.Owner = this;
+            if(contactWindow.ShowDialog()==true) { }
+        }
+
+        private void facebook_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("facebook");
+            contactWindow.Owner = this;
+            if (contactWindow.ShowDialog() == true) { }
+        }
+
+        private void instagram_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("instagram");
+            contactWindow.Owner = this;
+            if (contactWindow.ShowDialog() == true) { }
+        }
+
+        private void vk_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("vk");
+            contactWindow.Owner = this;
+            if (contactWindow.ShowDialog() == true) { }
+        }
     }
 }
