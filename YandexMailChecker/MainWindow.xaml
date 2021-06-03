@@ -131,7 +131,7 @@
                 <TextBlock Text="Filters" Margin="0,15,0,10" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="filterBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
-                <Button x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
+                <Button Command="{Binding AddFilterCommand}" CommandParameter="{Binding ElementName=filterBox, Path=Text}" x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
                     </Button.Content>

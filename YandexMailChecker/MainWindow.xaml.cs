@@ -46,6 +46,8 @@ namespace YandexMailChecker
         private void addFilterBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(filterBox.Text)) return;
+            foreach(Chip s in filterPanel.Children)
+                if (s.Content.ToString() == filterBox.Text) return;
             Chip newFilter = new Chip() { IsDeletable = true, Content = filterBox.Text, Margin = new Thickness(0,10,10,0)};
             newFilter.DeleteClick += NewFilter_DeleteClick;
             filterPanel.Children.Add(newFilter);

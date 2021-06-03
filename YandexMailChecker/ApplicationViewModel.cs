@@ -24,6 +24,7 @@ namespace YandexMailChecker
         public TestAccount testAccount { get; set; }
 
         public ObservableCollection<Account> accountList { get; set; }
+        public ObservableCollection<string> userFilters { get; set; }
 
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
@@ -31,13 +32,14 @@ namespace YandexMailChecker
         private RelayCommand changeSeparatorsCommand;
         private RelayCommand loadProxiesCommand;
         private RelayCommand verifyAccountCommand;
-        private RelayCommand contactCommand;
+        private RelayCommand addFilterCommand;
 
         protected IDialogService dialogService;
 
         public ApplicationViewModel(IDialogService dialogService)
         {
             testAccount = new TestAccount();
+            userFilters = new ObservableCollection<string>();
             this.dialogService = dialogService;
             accountList = new ObservableCollection<Account>();
             accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
@@ -194,6 +196,24 @@ namespace YandexMailChecker
                             }
                         }
                         else MessageBox.Show($"Please write correct e-mail address", "Email verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }));
+            }
+        }
+
+        public RelayCommand AddFilterCommand
+        {
+            get
+            {
+                return addFilterCommand ??
+                    (addFilterCommand = new RelayCommand(obj =>
+                    {
+                        if(!userFilters.Contains((string)obj))
+                        userFilters.Add((string)obj);
+
+                        foreach(var s in userFilters)
+                        {
+                            MessageBox.Show(s);
+                        }
                     }));
             }
         }
