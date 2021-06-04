@@ -23,7 +23,7 @@ namespace YandexMailChecker
 
         public TestAccount testAccount { get; set; }                //konto osobiste do sprawdzenia dzialania programu
 
-        public ObservableCollection<Account> accountList { get; set; }
+        public ObservableCollection<Account> accountList { get; set; }      //konta wyswietlane na DataGrid
         public ObservableCollection<string> userFilters { get; set; }       //filtry wybrane przez uzytkownika
 
         private RelayCommand addAccountCommand;
@@ -99,7 +99,6 @@ namespace YandexMailChecker
                                         loadedAccountList.Add(new Account(record.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0], record.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1]));
                                     }
                                 }
-                                MessageBox.Show(loadedAccountList[0].Password);
                                 OnPropertyChanged("LoadedAccountsCount");   //po wczytaniu musimy poinformowac View ze zmienil sie parametr LoadedAccountsCount
                             }
                         }
@@ -223,17 +222,14 @@ namespace YandexMailChecker
                 return startCheckerCommand ??
                    (startCheckerCommand = new RelayCommand(obj =>
                    {
-                       foreach(var s in userFilters)
-                       {
-                           MessageBox.Show(s);
-                       }
                        foreach(Account acc in loadedAccountList)
                        {
-                           MessageBox.Show(loadedAccountList.Count.ToString());
                            acc.CheckAccount(userFilters);
-                           MessageBox.Show(acc.Filters);
+                           if(acc.getFiltersCount!=0)
+                           {
+                               AddAccountCommand.Execute(acc);
+                           }
                        }
-                      
                    }));
             }
         }
