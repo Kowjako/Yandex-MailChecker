@@ -39,14 +39,22 @@ namespace YandexMailChecker
             filters = new List<string>();
         }
 
-        public void CheckAccount(ObservableCollection<string> userFilters)
+        public bool CheckAccount(ObservableCollection<string> userFilters)
         {
             MessageBox.Show($"Email = {email}, Pass = {password}");
-            ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true);
-            foreach (var s in userFilters)
+            try
             {
-                var msgs = imapClient.SearchMessages(SearchCondition.From(s));
-                if (msgs.Count() != 0) filters.Add(s);
+                ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true);
+                foreach (var s in userFilters)
+                {
+                    var msgs = imapClient.SearchMessages(SearchCondition.From(s));
+                    if (msgs.Count() != 0) filters.Add(s);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;   //false - blad podczas sprawdzania profilu
             }
         }
 
