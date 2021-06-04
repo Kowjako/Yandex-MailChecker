@@ -18,13 +18,13 @@ namespace YandexMailChecker
             get { return Convert.ToString(loadedAccountList == null ? 0 : loadedAccountList.Count); }
         }
 
-        private List<Account> loadedAccountList { get; set; }
-        private List<Proxy> loadedProxyList { get; set; }
+        private List<Account> loadedAccountList { get; set; }       //zaladowana baza danych
+        private List<Proxy> loadedProxyList { get; set; }           //zaladowane proxy
 
-        public TestAccount testAccount { get; set; }
+        public TestAccount testAccount { get; set; }                //konto osobiste do sprawdzenia dzialania programu
 
         public ObservableCollection<Account> accountList { get; set; }
-        public ObservableCollection<string> userFilters { get; set; }
+        public ObservableCollection<string> userFilters { get; set; }       //filtry wybrane przez uzytkownika
 
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
@@ -33,8 +33,9 @@ namespace YandexMailChecker
         private RelayCommand loadProxiesCommand;
         private RelayCommand verifyAccountCommand;
         private RelayCommand addFilterCommand;
+        private RelayCommand startCheckerCommand;
 
-        protected IDialogService dialogService;
+        protected IDialogService dialogService;         //DialogService do zaladowania manadzera plikow
 
         public ApplicationViewModel(IDialogService dialogService)
         {
@@ -42,10 +43,10 @@ namespace YandexMailChecker
             userFilters = new ObservableCollection<string>();
             this.dialogService = dialogService;
             accountList = new ObservableCollection<Account>();
-            accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
-            accountList.Add(new Account("andreypevniy@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
-            accountList.Add(new Account("leanidp@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Beverly Hills" }));
-            accountList.Add(new Account("rager13@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "BruteForce" }));
+            //accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
+            //accountList.Add(new Account("andreypevniy@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
+            //accountList.Add(new Account("leanidp@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Beverly Hills" }));
+            //accountList.Add(new Account("rager13@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "BruteForce" }));
         }
 
         public RelayCommand AddAccountCommand
@@ -94,10 +95,12 @@ namespace YandexMailChecker
                                 using (StreamReader reader = new StreamReader(dialogService.FilePath))
                                 {
                                     while ((record = reader.ReadLine()) != null)
-                                        loadedAccountList.Add(new Account(record.Split(' ')[0], record.Split(' ')[1], null));
+                                    {
+                                        loadedAccountList.Add(new Account(record.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0], record.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1]));
+                                    }
                                 }
+                                MessageBox.Show(loadedAccountList[0].Password);
                                 OnPropertyChanged("LoadedAccountsCount");   //po wczytaniu musimy poinformowac View ze zmienil sie parametr LoadedAccountsCount
-                                dialogService.ShowMessage("Database was loaded successfully");
                             }
                         }
                         catch(Exception ex)
@@ -209,12 +212,29 @@ namespace YandexMailChecker
                     {
                         if(!userFilters.Contains((string)obj))
                         userFilters.Add((string)obj);
-
-                        foreach(var s in userFilters)
-                        {
-                            MessageBox.Show(s);
-                        }
                     }));
+            }
+        }
+
+        public RelayCommand StartCheckerCommand
+        {
+            get
+            {
+                return startCheckerCommand ??
+                   (startCheckerCommand = new RelayCommand(obj =>
+                   {
+                       foreach(var s in userFilters)
+                       {
+                           MessageBox.Show(s);
+                       }
+                       foreach(Account acc in loadedAccountList)
+                       {
+                           MessageBox.Show(loadedAccountList.Count.ToString());
+                           acc.CheckAccount(userFilters);
+                           MessageBox.Show(acc.Filters);
+                       }
+                      
+                   }));
             }
         }
 

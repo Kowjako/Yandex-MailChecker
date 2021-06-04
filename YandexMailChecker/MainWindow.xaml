@@ -94,7 +94,7 @@
                     <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
                     <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
                     <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
-                    <Button Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                    <Button Command="{Binding StartCheckerCommand}" Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom">
@@ -131,7 +131,7 @@
                 <TextBlock Text="Filters" Margin="0,15,0,10" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="filterBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
-                <Button Command="{Binding AddFilterCommand}" CommandParameter="{Binding ElementName=filterBox, Path=Text}" x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
+                <Button Command="{Binding AddFilterCommand}" CommandParameter="{Binding ElementName=filterBox, Path=Text}" x:Name="addFilterBtn" Background="Black" BorderBrush="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
                     </Button.Content>
@@ -141,7 +141,7 @@
                 </WrapPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 <Grid>
-                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="30" Height="25" />
+                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="0" Height="25" />
                     <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat=' {0} %'}" Margin="0,13,0,0" TextAlignment="Center" Foreground="White" Background="Transparent"/>
                 </Grid>
             </StackPanel>
