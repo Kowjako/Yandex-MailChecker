@@ -18,6 +18,31 @@ namespace YandexMailChecker
             get { return Convert.ToString(loadedAccountList == null ? 0 : loadedAccountList.Count); }
         }
 
+        public string CheckedAccountsCount
+        {
+            get { return Convert.ToString(checkedAccountCount); }
+        }
+
+        public string WithFilterAccountCount
+        {
+            get { return Convert.ToString(withFilterAccountCount); }
+        }
+
+        public string ErrorAccountCount
+        {
+            get { return Convert.ToString(errorAccountCount); }
+        }
+
+        public string BadAccountCount
+        {
+            get { return Convert.ToString(checkedAccountCount - withFilterAccountCount); }
+        }
+
+        public string ValidateAccountCount
+        {
+            get { return Convert.ToString(validateAccountCount); }
+        }
+
         private List<Account> loadedAccountList { get; set; }       //zaladowana baza danych
         private List<Proxy> loadedProxyList { get; set; }           //zaladowane proxy
 
@@ -36,6 +61,8 @@ namespace YandexMailChecker
         private RelayCommand startCheckerCommand;
 
         protected IDialogService dialogService;         //DialogService do zaladowania manadzera plikow
+
+        private int checkedAccountCount = 0, withFilterAccountCount = 0, errorAccountCount = 0, validateAccountCount = 0;
 
         public ApplicationViewModel(IDialogService dialogService)
         {
@@ -222,12 +249,28 @@ namespace YandexMailChecker
                 return startCheckerCommand ??
                    (startCheckerCommand = new RelayCommand(obj =>
                    {
+                       bool isValidate = false;
                        foreach(Account acc in loadedAccountList)
                        {
-                           acc.CheckAccount(userFilters);
-                           if(acc.getFiltersCount!=0)
+                           checkedAccountCount++;
+                           OnPropertyChanged("CheckedAccountsCount");
+                           OnPropertyChanged("BadAccountCount");
+                           isValidate =  acc.CheckAccount(userFilters);
+                           if(isValidate)
                            {
-                               AddAccountCommand.Execute(acc);
+                               validateAccountCount++;
+                               OnPropertyChanged("ValidateAccountCount");
+                               if (acc.getFiltersCount != 0)
+                               {
+                                   withFilterAccountCount++;
+                                   OnPropertyChanged("WithFilterAccountCount");
+                                   AddAccountCommand.Execute(acc);
+                               }
+                           }
+                           else
+                           {
+                               errorAccountCount++;
+                               OnPropertyChanged("ErrorAccountCount");
                            }
                        }
                    }));

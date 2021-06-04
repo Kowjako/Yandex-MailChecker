@@ -120,11 +120,11 @@
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="{Binding LoadedAccountsCount}" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding CheckedAccountsCount}" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding WithFilterAccountCount}" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding ValidateAccountCount}" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding BadAccountCount}" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding ErrorAccountCount}" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
