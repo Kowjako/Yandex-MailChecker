@@ -47,7 +47,7 @@ namespace YandexMailChecker
                 ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true);
                 foreach (var s in userFilters)
                 {
-                    var msgs = imapClient.SearchMessages(SearchCondition.From(s));
+                    var msgs = imapClient.SearchMessages(SearchCondition.From(s),true);
                     if (msgs.Count() != 0) filters.Add(s);
                 }
                 return true;

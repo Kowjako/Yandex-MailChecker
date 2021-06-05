@@ -85,5 +85,11 @@ namespace YandexMailChecker
             contactWindow.Owner = this;
             if (contactWindow.ShowDialog() == true) { }
         }
+
+        private void restartBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
     }
 }

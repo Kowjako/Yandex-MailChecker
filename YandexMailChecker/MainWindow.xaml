@@ -64,6 +64,7 @@
             </DockPanel>
             <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Cursor="Hand" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,115,2" Grid.Column="2" x:Name="restartBtn" Width="35" Height="33" Cursor="Hand" Source="Icons/restart.png" ToolTip="Restart program" MouseUp="restartBtn_MouseUp"/>
             <DockPanel Grid.Row="1" Grid.Column="0">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
                 <StackPanel DockPanel.Dock="Top">
@@ -131,11 +132,11 @@
                 <TextBlock Text="Filters" Margin="0,15,0,10" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="filterBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
-                <Button Command="{Binding AddFilterCommand}" CommandParameter="{Binding ElementName=filterBox, Path=Text}" x:Name="addFilterBtn" Background="Black" BorderBrush="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
-                    </Button.Content>
-                </Button>
+                    <Button Command="{Binding AddFilterCommand}" CommandParameter="{Binding ElementName=filterBox, Path=Text}" x:Name="addFilterBtn" Background="Black" BorderBrush="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
                 <WrapPanel Margin="10,10,10,0" x:Name="filterPanel" Height="295">
                 </WrapPanel>
@@ -148,7 +149,7 @@
             <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
                 <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock DockPanel.Dock="Top" Text="Data" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                <DataGrid ColumnWidth="*" Background="White" IsEnabled="True" Margin="4" x:Name="dataGrid" Grid.Column="1" ItemsSource="{Binding accountList}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserResizeColumns="True" CanUserResizeRows="False">
+                <DataGrid ColumnWidth="*" Background="White" IsEnabled="True" Margin="4" x:Name="dataGrid" Grid.Column="1" ItemsSource="{Binding accountList}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserResizeColumns="True" HorizontalScrollBarVisibility="Auto" CanUserResizeRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn CellStyle="{StaticResource cellStyle}"  Binding="{Binding Email}">
                             <DataGridTextColumn.Header>
