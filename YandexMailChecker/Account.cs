@@ -41,14 +41,15 @@ namespace YandexMailChecker
 
         public bool CheckAccount(ObservableCollection<string> userFilters)
         {
-            MessageBox.Show($"Email = {email}, Pass = {password}");
             try
             {
-                ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true);
-                foreach (var s in userFilters)
+                using (ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true))     //bo ImapClient trzeba usuwan (IDisposable)
                 {
-                    var msgs = imapClient.SearchMessages(SearchCondition.From(s),true);
-                    if (msgs.Count() != 0) filters.Add(s);
+                    foreach (var s in userFilters)
+                    {
+                        var msgs = imapClient.SearchMessages(SearchCondition.From(s), true);
+                        if (msgs.Count() != 0) filters.Add(s);
+                    }
                 }
                 return true;
             }
@@ -56,6 +57,11 @@ namespace YandexMailChecker
             {
                 return false;   //false - blad podczas sprawdzania profilu
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Email = {email}, Password = {password}";
         }
 
     }

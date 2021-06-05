@@ -142,7 +142,7 @@
                 </WrapPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 <Grid>
-                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="0" Height="25" />
+                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="{Binding AppProgressStatus, Mode=OneWay}" Height="25" />
                     <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat=' {0} %'}" Margin="0,13,0,0" TextAlignment="Center" Foreground="White" Background="Transparent"/>
                 </Grid>
             </StackPanel>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +17,7 @@ namespace YandexMailChecker
 {
     class ApplicationViewModel : INotifyPropertyChanged
     {
+
         public string LoadedAccountsCount
         {
             get { return Convert.ToString(loadedAccountList == null ? 0 : loadedAccountList.Count); }
@@ -45,6 +48,11 @@ namespace YandexMailChecker
             get { return Convert.ToString(validateAccountCount); }
         }
 
+        public int AppProgressStatus
+        {
+            get { return (int)(appProgressStatus * 100); }
+        }
+
         private List<Account> loadedAccountList { get; set; }       //zaladowana baza danych
         private List<Proxy> loadedProxyList { get; set; }           //zaladowane proxy
 
@@ -62,9 +70,11 @@ namespace YandexMailChecker
         private RelayCommand addFilterCommand;
         private RelayCommand startCheckerCommand;
 
+
         protected IDialogService dialogService;         //DialogService do zaladowania manadzera plikow
 
         private int checkedAccountCount = 0, withFilterAccountCount = 0, errorAccountCount = 0, validateAccountCount = 0, loadProxiesCount = 0;
+        private double appProgressStatus = 0;
 
         public ApplicationViewModel(IDialogService dialogService)
         {
@@ -250,32 +260,45 @@ namespace YandexMailChecker
             get
             {
                 return startCheckerCommand ??
-                   (startCheckerCommand = new RelayCommand(obj =>
+                   (startCheckerCommand = new RelayCommand(async obj =>
                    {
-                       WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port)); //przykladowe uzycie proxy
-
                        bool isValidate = false;
-                       foreach(Account acc in loadedAccountList)
+                       foreach (Account acc in loadedAccountList)
                        {
-                           checkedAccountCount++;
-                           OnPropertyChanged("CheckedAccountsCount");
+                           WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port)); //przykladowe uzycie proxy
+                           {
+                               /* Odnowiamy ilosc sprawdzonych */
+                               checkedAccountCount++;
+                               OnPropertyChanged("CheckedAccountsCount");
 
-                           isValidate =  acc.CheckAccount(userFilters);
-                           if(isValidate)
-                           {
-                               validateAccountCount++;
-                               OnPropertyChanged("ValidateAccountCount");
-                               if (acc.getFiltersCount != 0)
+                               /* Odnowiamy progressBar */
+                               appProgressStatus = (double)checkedAccountCount / loadedAccountList.Count;
+                               OnPropertyChanged("AppProgressStatus");
+
+                               await Task.Run(() => {
+                                   isValidate = acc.CheckAccount(userFilters);
+                                   Thread.Sleep(100);
+                               });
+
+                               if (isValidate)
                                {
-                                   withFilterAccountCount++;
-                                   OnPropertyChanged("WithFilterAccountCount");
-                                   AddAccountCommand.Execute(acc);
+                                   /* Jezeli poprawne dane to aktualizujemy ilosc */
+                                   validateAccountCount++;
+                                   OnPropertyChanged("ValidateAccountCount");
+                                   if (acc.getFiltersCount != 0)
+                                   {
+                                       /* Jezeli sa filtry odnawiamy ilosc */
+                                       withFilterAccountCount++;
+                                       OnPropertyChanged("WithFilterAccountCount");
+                                       AddAccountCommand.Execute(acc);
+                                   }
                                }
-                           }
-                           else
-                           {
-                               errorAccountCount++;
-                               OnPropertyChanged("ErrorAccountCount");
+                               else
+                               {
+                                   /* Jezeli nie poprawne dane aktalizujemy ilosc */
+                                   errorAccountCount++;
+                                   OnPropertyChanged("ErrorAccountCount");
+                               }
                            }
                        }
                    }));
