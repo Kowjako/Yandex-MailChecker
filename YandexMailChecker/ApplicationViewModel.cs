@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -250,7 +252,8 @@ namespace YandexMailChecker
                 return startCheckerCommand ??
                    (startCheckerCommand = new RelayCommand(obj =>
                    {
-                       
+                       WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port)); //przykladowe uzycie proxy
+
                        bool isValidate = false;
                        foreach(Account acc in loadedAccountList)
                        {
@@ -258,7 +261,6 @@ namespace YandexMailChecker
                            OnPropertyChanged("CheckedAccountsCount");
 
                            isValidate =  acc.CheckAccount(userFilters);
-
                            if(isValidate)
                            {
                                validateAccountCount++;

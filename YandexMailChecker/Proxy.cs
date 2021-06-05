@@ -8,8 +8,8 @@ namespace YandexMailChecker
 {
     public class Proxy
     {
-        protected string address { get; private set; }
-        protected string port { get; private set; }
+        public string address { get; private set; }
+        public string port { get; private set; }
 
         public Proxy(string address, string port)
         {
