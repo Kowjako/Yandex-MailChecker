@@ -37,7 +37,7 @@
                 <TextBlock x:Name="infoLabel" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" Text="Contact with me via E-mail"/>
                 <TextBlock x:Name="contactData" HorizontalAlignment="Center" Text="kovyakovladimir@gmail.com" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}">
                 </TextBlock>
-                <Button Margin="10,20,10,0" Click="Button_Click" Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:RippleAssist.Feedback="#DD000000" Content="OK" />
+                <Button Margin="10,20,10,0" Background="Black" Foreground="White" BorderBrush="Black" Click="Button_Click" Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:RippleAssist.Feedback="#DD000000" Content="OK" />
             </StackPanel>
         </Grid>
     </Border>

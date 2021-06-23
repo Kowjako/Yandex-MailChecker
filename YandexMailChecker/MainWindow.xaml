@@ -85,17 +85,20 @@
                         </Border>
                         <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
-                    <Button Command="{Binding VerifyAccountCommand}" CommandParameter="{Binding ElementName=passwordBox}" Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
+                    <Button Command="{Binding VerifyAccountCommand}" CommandParameter="{Binding ElementName=passwordBox}" Margin="10,15,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock DockPanel.Dock="Top" Text="Let's start" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                    <Button Command="{Binding TestConnectionCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
-                    <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
-                    <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
-                    <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
-                    <Button Command="{Binding StartCheckerCommand}" Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                    <Button Command="{Binding TestConnectionCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
+                    <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
+                    <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
+                    <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
+                    <Button Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding StartCheckerCommand}" Margin="10,16,10,0" Width="186" Foreground="White" Background="Crimson" BorderBrush="Crimson" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                        <Button Command="{Binding StopCheckerCommand}" Margin="10,16,10,0" Width="186" Foreground="White" Background="Blue" BorderBrush="Blue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Stop check accounts"/>
+                    </StackPanel>
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom">
