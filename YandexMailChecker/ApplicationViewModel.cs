@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace YandexMailChecker
 {
@@ -61,6 +62,8 @@ namespace YandexMailChecker
         public ObservableCollection<Account> accountList { get; set; }      //konta wyswietlane na DataGrid
         public ObservableCollection<string> userFilters { get; set; }       //filtry wybrane przez uzytkownika
 
+        private CancellationTokenSource cts;
+
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
         private RelayCommand loadDatabaseCommand;
@@ -69,6 +72,7 @@ namespace YandexMailChecker
         private RelayCommand verifyAccountCommand;
         private RelayCommand addFilterCommand;
         private RelayCommand startCheckerCommand;
+        private RelayCommand stopCheckerCommand;
 
 
         protected IDialogService dialogService;         //DialogService do zaladowania manadzera plikow
@@ -78,6 +82,7 @@ namespace YandexMailChecker
 
         public ApplicationViewModel(IDialogService dialogService)
         {
+            cts = new CancellationTokenSource();
             testAccount = new TestAccount();
             userFilters = new ObservableCollection<string>();
             this.dialogService = dialogService;
@@ -259,49 +264,75 @@ namespace YandexMailChecker
         {
             get
             {
+                //return startCheckerCommand ??
+                //   (startCheckerCommand = new RelayCommand(async obj =>
+                //   {
+                //       bool isValidate = false;
+                //       foreach (Account acc in loadedAccountList)
+                //       {
+                //           WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port)); //przykladowe uzycie proxy
+                //           {
+                //               /* Odnowiamy ilosc sprawdzonych */
+                //               checkedAccountCount++;
+                //               OnPropertyChanged("CheckedAccountsCount");
+
+                //               /* Odnowiamy progressBar */
+                //               appProgressStatus = (double)checkedAccountCount / loadedAccountList.Count;
+                //               OnPropertyChanged("AppProgressStatus");
+
+                //               await Task.Run(() => {
+                //                   isValidate = acc.CheckAccount(userFilters);
+                //                   Thread.Sleep(100);
+                //               });
+
+                //               if (isValidate)
+                //               {
+                //                   /* Jezeli poprawne dane to aktualizujemy ilosc */
+                //                   validateAccountCount++;
+                //                   OnPropertyChanged("ValidateAccountCount");
+                //                   if (acc.getFiltersCount != 0)
+                //                   {
+                //                       /* Jezeli sa filtry odnawiamy ilosc */
+                //                       withFilterAccountCount++;
+                //                       OnPropertyChanged("WithFilterAccountCount");
+                //                       AddAccountCommand.Execute(acc);
+                //                   }
+                //               }
+                //               else
+                //               {
+                //                   /* Jezeli nie poprawne dane aktalizujemy ilosc */
+                //                   errorAccountCount++;
+                //                   OnPropertyChanged("ErrorAccountCount");
+                //               }
+                //           }
+                //       }
+                //   }));
                 return startCheckerCommand ??
-                   (startCheckerCommand = new RelayCommand(async obj =>
-                   {
-                       bool isValidate = false;
-                       foreach (Account acc in loadedAccountList)
-                       {
-                           WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port)); //przykladowe uzycie proxy
-                           {
-                               /* Odnowiamy ilosc sprawdzonych */
-                               checkedAccountCount++;
-                               OnPropertyChanged("CheckedAccountsCount");
+                    (startCheckerCommand = new RelayCommand(obj =>
+                    {
+                        bool isVerifying = false;
+                        var token = cts.Token;
 
-                               /* Odnowiamy progressBar */
-                               appProgressStatus = (double)checkedAccountCount / loadedAccountList.Count;
-                               OnPropertyChanged("AppProgressStatus");
+                        var tasks = new Task[loadedAccountList.Count];
+                        for(var i = 0; i < loadedAccountList.Count; i++)
+                        {
+                            var account = loadedAccountList[i];
+                            tasks[i] = Task.Factory.StartNew(() => account.CheckAccount(userFilters), token);
+                        }
 
-                               await Task.Run(() => {
-                                   isValidate = acc.CheckAccount(userFilters);
-                                   Thread.Sleep(100);
-                               });
+                        Task.Factory.StartNew(() =>
+                        {
+                            try
+                            {
+                                Task.WaitAll(tasks, token);
+                            }
+                            catch (OperationCanceledException)
+                            {
+                                MessageBox.Show($"Please write correct e-mail address", "Email verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                        });
 
-                               if (isValidate)
-                               {
-                                   /* Jezeli poprawne dane to aktualizujemy ilosc */
-                                   validateAccountCount++;
-                                   OnPropertyChanged("ValidateAccountCount");
-                                   if (acc.getFiltersCount != 0)
-                                   {
-                                       /* Jezeli sa filtry odnawiamy ilosc */
-                                       withFilterAccountCount++;
-                                       OnPropertyChanged("WithFilterAccountCount");
-                                       AddAccountCommand.Execute(acc);
-                                   }
-                               }
-                               else
-                               {
-                                   /* Jezeli nie poprawne dane aktalizujemy ilosc */
-                                   errorAccountCount++;
-                                   OnPropertyChanged("ErrorAccountCount");
-                               }
-                           }
-                       }
-                   }));
+                    }));
             }
         }
 
