@@ -1,0 +1,44 @@
+﻿<Window x:Class="YandexMailChecker.ContactWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YandexMailChecker"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="ContactWindow" WindowStartupLocation="CenterOwner" Height="156.992" Width="317.797" ResizeMode="NoResize" WindowStyle="None">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="lgbtBrush">
+            <GradientStop Color="Red" Offset="0" />
+            <GradientStop Color="Blue" Offset="0.5" />
+            <GradientStop Color="Green" Offset="1" />
+            <GradientStop Color="Yellow" Offset="1.5" />
+            <GradientStop Color="Purple" Offset="2"/>
+            <GradientStop Color="Cyan" Offset="2.5" />
+            <GradientStop Color="Orange" Offset="3" />
+        </LinearGradientBrush>
+        <Style x:Key="textBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Rockwell"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderBrush="{StaticResource lgbtBrush}" BorderThickness="3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <DockPanel Background="Transparent" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Margin="0,0,0,5" DockPanel.Dock="Top" Height="26">
+                <TextBlock Height="20" Margin="5,3,0,0" Text="Contact with me :)" Style="{StaticResource textBlockStyle}"/>
+            </DockPanel>
+            <Image HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Cursor="Hand" x:Name="closeBtn" MouseUp="closeBtn_MouseUp" Height="20" Width="20" Source="Icons/exit.png" RenderTransformOrigin="0.504,-0.711"/>
+            <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="1"/>
+            <StackPanel Grid.Row="1">
+                <TextBlock x:Name="infoLabel" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" Text="Contact with me via E-mail"/>
+                <TextBlock x:Name="contactData" HorizontalAlignment="Center" Text="kovyakovladimir@gmail.com" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}">
+                </TextBlock>
+                <Button Margin="10,20,10,0" Background="Black" Foreground="White" BorderBrush="Black" Click="Button_Click" Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:RippleAssist.Feedback="#DD000000" Content="OK" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

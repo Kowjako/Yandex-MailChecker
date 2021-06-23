@@ -46,6 +46,8 @@ namespace YandexMailChecker
         private void addFilterBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(filterBox.Text)) return;
+            foreach(Chip s in filterPanel.Children)
+                if (s.Content.ToString() == filterBox.Text) return;
             Chip newFilter = new Chip() { IsDeletable = true, Content = filterBox.Text, Margin = new Thickness(0,10,10,0)};
             newFilter.DeleteClick += NewFilter_DeleteClick;
             filterPanel.Children.Add(newFilter);
@@ -54,6 +56,40 @@ namespace YandexMailChecker
         private void NewFilter_DeleteClick(object sender, RoutedEventArgs e)
         {
             filterPanel.Children.Remove((Chip)sender);
+        }
+
+        private void gmail_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("gmail");
+            contactWindow.Owner = this;
+            if(contactWindow.ShowDialog()==true) { }
+        }
+
+        private void facebook_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("facebook");
+            contactWindow.Owner = this;
+            if (contactWindow.ShowDialog() == true) { }
+        }
+
+        private void instagram_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("instagram");
+            contactWindow.Owner = this;
+            if (contactWindow.ShowDialog() == true) { }
+        }
+
+        private void vk_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ContactWindow contactWindow = new ContactWindow("vk");
+            contactWindow.Owner = this;
+            if (contactWindow.ShowDialog() == true) { }
+        }
+
+        private void restartBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
     }
 }

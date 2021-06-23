@@ -64,6 +64,7 @@
             </DockPanel>
             <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Cursor="Hand" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,115,2" Grid.Column="2" x:Name="restartBtn" Width="35" Height="33" Cursor="Hand" Source="Icons/restart.png" ToolTip="Restart program" MouseUp="restartBtn_MouseUp"/>
             <DockPanel Grid.Row="1" Grid.Column="0">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
                 <StackPanel DockPanel.Dock="Top">
@@ -84,26 +85,29 @@
                         </Border>
                         <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
-                    <Button Command="{Binding VerifyAccountCommand}" CommandParameter="{Binding ElementName=passwordBox}" Margin="10,15,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
+                    <Button Command="{Binding VerifyAccountCommand}" CommandParameter="{Binding ElementName=passwordBox}" Margin="10,15,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify application" />
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock DockPanel.Dock="Top" Text="Let's start" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                    <Button Command="{Binding TestConnectionCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
-                    <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
-                    <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
-                    <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
-                    <Button Margin="10,16,10,0" Background="DodgerBlue" BorderBrush="DodgerBlue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
-                    <Button Margin="10,16,10,0" Background="Pink" BorderBrush="Pink" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                    <Button Command="{Binding TestConnectionCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Verify Internet connection " />
+                    <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
+                    <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
+                    <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
+                    <Button Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding StartCheckerCommand}" Margin="10,16,10,0" Width="186" Foreground="White" Background="Crimson" BorderBrush="Crimson" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
+                        <Button Command="{Binding StopCheckerCommand}" Margin="10,16,10,0" Width="186" Foreground="White" Background="Blue" BorderBrush="Blue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Stop check accounts"/>
+                    </StackPanel>
                     <Border Margin="0,9,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom">
                     <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource textBlockStyle}" Text="How to reach me?"/>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                        <materialDesign:PackIcon Margin="45,0,28,0" Width="50" Height="50" Kind="Gmail" ToolTip="Send me a message"/>
-                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Facebook" ToolTip="Send me a message" />
-                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Instagram" ToolTip="Dm Me"/>
-                        <materialDesign:PackIcon Margin="10,0,28,0" Width="50" Height="50" Kind="Vk" ToolTip="Send me a message" />
+                        <materialDesign:PackIcon Cursor="Hand" x:Name="gmail" Margin="45,0,28,0" Width="50" Height="50" Kind="Gmail" ToolTip="Send me a message" MouseUp="gmail_MouseUp"/>
+                        <materialDesign:PackIcon Cursor="Hand" x:Name="facebook" Margin="10,0,28,0" Width="50" Height="50" Kind="Facebook" ToolTip="Send me a message" MouseUp="facebook_MouseUp" />
+                        <materialDesign:PackIcon Cursor="Hand" x:Name="instagram" Margin="10,0,28,0" Width="50" Height="50" Kind="Instagram" ToolTip="Dm Me" MouseUp="instagram_MouseUp"/>
+                        <materialDesign:PackIcon Cursor="Hand" x:Name="vk" Margin="10,0,28,0" Width="50" Height="50" Kind="Vk" ToolTip="Send me a message"  MouseUp="vk_MouseUp"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
@@ -115,40 +119,40 @@
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts checked:"/>
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Accounts with filter:"/>
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Validate accounts:"/>
-                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Bad accounts:"/>
+                        <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Proxies loaded:"/>
                         <TextBlock Margin="12,10,0,0" Style="{StaticResource textBlockStyle}" Text="Errors:"/>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="{Binding LoadedAccountsCount}" Margin="0,10,0,0" Foreground="Blue" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
-                        <TextBlock Text="0" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding CheckedAccountsCount}" Margin="0,10,0,0" Foreground="Red" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding WithFilterAccountCount}" Margin="0,10,0,0" Foreground="Purple" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding ValidateAccountCount}" Margin="0,10,0,0" Foreground="Green" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding LoadProxiesCount}" Margin="0,10,0,0" Foreground="RosyBrown" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
+                        <TextBlock Text="{Binding ErrorAccountCount}" Margin="0,10,0,0" Foreground="Orange" FontWeight="Bold" FlowDirection="RightToLeft" Width="140" Style="{StaticResource textBlockStyle}"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock Text="Filters" Margin="0,15,0,10" Style="{StaticResource textBlockStyle}" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="filterBox" Text="" Width="280" FontFamily="RockWell" FontSize="16" Margin="10,0,20,0" materialDesign:HintAssist.Hint="Example: Steam"  VerticalAlignment="Bottom" />
-                <Button x:Name="addFilterBtn" Background="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
-                    </Button.Content>
-                </Button>
+                    <Button Command="{Binding AddFilterCommand}" CommandParameter="{Binding ElementName=filterBox, Path=Text}" x:Name="addFilterBtn" Background="Black" BorderBrush="Black" Width="30" Click="addFilterBtn_Click" Height="30"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Left">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="PlusCircleOutline" Height="15" Width="15" />
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
                 <WrapPanel Margin="10,10,10,0" x:Name="filterPanel" Height="295">
                 </WrapPanel>
                 <Border Margin="0,12,0,0" BorderBrush="Gray" BorderThickness="0.4"/>
                 <Grid>
-                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="30" Height="25" />
+                    <ProgressBar x:Name="progressBar" Margin="10,10,10,0" Value="{Binding AppProgressStatus, Mode=OneWay}" Height="25" />
                     <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat=' {0} %'}" Margin="0,13,0,0" TextAlignment="Center" Foreground="White" Background="Transparent"/>
                 </Grid>
             </StackPanel>
             <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="True">
                 <Border DockPanel.Dock="Left" BorderBrush="Gray" BorderThickness="0.4"/>
                 <TextBlock DockPanel.Dock="Top" Text="Data" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
-                <DataGrid ColumnWidth="*" Background="White" IsEnabled="True" Margin="4" x:Name="dataGrid" Grid.Column="1" ItemsSource="{Binding accountList}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserResizeColumns="True" CanUserResizeRows="False">
+                <DataGrid ColumnWidth="*" Background="White" IsEnabled="True" Margin="4" x:Name="dataGrid" Grid.Column="1" ItemsSource="{Binding accountList}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserResizeColumns="True" HorizontalScrollBarVisibility="Auto" CanUserResizeRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn CellStyle="{StaticResource cellStyle}"  Binding="{Binding Email}">
                             <DataGridTextColumn.Header>
