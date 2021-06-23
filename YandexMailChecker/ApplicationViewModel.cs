@@ -123,6 +123,18 @@ namespace YandexMailChecker
             }
         }
 
+        public RelayCommand StopCheckerCommand
+        {
+            get
+            {
+                return stopCheckerCommand ??
+                    (stopCheckerCommand = new RelayCommand(obj =>
+                    {
+                        cts.Cancel();
+                    }));
+            }
+        }
+
         public RelayCommand LoadDatabaseCommand
         {
             get
@@ -264,60 +276,43 @@ namespace YandexMailChecker
         {
             get
             {
-                //return startCheckerCommand ??
-                //   (startCheckerCommand = new RelayCommand(async obj =>
-                //   {
-                //       bool isValidate = false;
-                //       foreach (Account acc in loadedAccountList)
-                //       {
-                //           WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port)); //przykladowe uzycie proxy
-                //           {
-                //               /* Odnowiamy ilosc sprawdzonych */
-                //               checkedAccountCount++;
-                //               OnPropertyChanged("CheckedAccountsCount");
-
-                //               /* Odnowiamy progressBar */
-                //               appProgressStatus = (double)checkedAccountCount / loadedAccountList.Count;
-                //               OnPropertyChanged("AppProgressStatus");
-
-                //               await Task.Run(() => {
-                //                   isValidate = acc.CheckAccount(userFilters);
-                //                   Thread.Sleep(100);
-                //               });
-
-                //               if (isValidate)
-                //               {
-                //                   /* Jezeli poprawne dane to aktualizujemy ilosc */
-                //                   validateAccountCount++;
-                //                   OnPropertyChanged("ValidateAccountCount");
-                //                   if (acc.getFiltersCount != 0)
-                //                   {
-                //                       /* Jezeli sa filtry odnawiamy ilosc */
-                //                       withFilterAccountCount++;
-                //                       OnPropertyChanged("WithFilterAccountCount");
-                //                       AddAccountCommand.Execute(acc);
-                //                   }
-                //               }
-                //               else
-                //               {
-                //                   /* Jezeli nie poprawne dane aktalizujemy ilosc */
-                //                   errorAccountCount++;
-                //                   OnPropertyChanged("ErrorAccountCount");
-                //               }
-                //           }
-                //       }
-                //   }));
                 return startCheckerCommand ??
                     (startCheckerCommand = new RelayCommand(obj =>
                     {
-                        bool isVerifying = false;
                         var token = cts.Token;
-
+                        WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port));
                         var tasks = new Task[loadedAccountList.Count];
-                        for(var i = 0; i < loadedAccountList.Count; i++)
+                        for (var i = 0; i < loadedAccountList.Count; i++)
                         {
                             var account = loadedAccountList[i];
-                            tasks[i] = Task.Factory.StartNew(() => account.CheckAccount(userFilters), token);
+                            tasks[i] = Task.Factory.StartNew(() =>
+                            {
+                                var isValidate = false;
+                                isValidate = account.CheckAccount(userFilters);
+                                Task.Delay(100);
+
+                                if (isValidate)
+                                {
+                                    validateAccountCount++;
+                                    OnPropertyChanged("ValidateAccountCount");
+                                    if (account.getFiltersCount > 0)
+                                    {
+                                        /* Jezeli sa filtry odnawiamy ilosc */
+                                        withFilterAccountCount++;
+                                        OnPropertyChanged("WithFilterAccountCount");
+                                        Application.Current.Dispatcher.Invoke(() => AddAccountCommand.Execute(account));
+                                    }
+                                }
+                                else
+                                {
+                                    errorAccountCount++;
+                                    OnPropertyChanged("ErrorAccountCount");
+                                }
+                                checkedAccountCount++;
+                                OnPropertyChanged("CheckedAccountsCount");
+                                appProgressStatus = (double)checkedAccountCount / loadedAccountList.Count;
+                                OnPropertyChanged("AppProgressStatus");
+                            }, token);
                         }
 
                         Task.Factory.StartNew(() =>
@@ -328,7 +323,7 @@ namespace YandexMailChecker
                             }
                             catch (OperationCanceledException)
                             {
-                                MessageBox.Show($"Please write correct e-mail address", "Email verifying", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show($"Checker was stopped by user", "Checker by @maybedot", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                         });
 
