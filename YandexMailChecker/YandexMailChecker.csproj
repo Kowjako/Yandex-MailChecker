@@ -82,11 +82,18 @@
       <DependentUpon>ContactWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DefaultDialogService.cs" />
+    <Compile Include="FeedbackWindow.xaml.cs">
+      <DependentUpon>FeedbackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IDialogService.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TestAccount.cs" />
     <Page Include="ContactWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FeedbackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +130,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Icons\feedback.png" />
+    <Resource Include="Icons\note.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
