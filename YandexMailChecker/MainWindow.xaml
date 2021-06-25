@@ -65,6 +65,7 @@
             <Image HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="2" x:Name="closeBtn" Width="35" Cursor="Hand" Height="35" MouseUp="closeBtn_MouseUp" ToolTip="Close application" Source="Icons/exit.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="2" x:Name="catalogueBtn" Style="{StaticResource imageStyle}" MouseUp="catalogueBtn_MouseUp" ToolTip="View output data" Source="Icons/folder.png"/>
             <Image HorizontalAlignment="Right" Margin="0,0,115,2" Grid.Column="2" x:Name="restartBtn" Width="35" Height="33" Cursor="Hand" Source="Icons/restart.png" ToolTip="Restart program" MouseUp="restartBtn_MouseUp"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,160,0" Grid.Column="2" x:Name="feedbackBtn" Width="40" Height="40" Cursor="Hand" Source="Icons/feedback.png" ToolTip="Send me your feedback" MouseUp="feedbackBtn_MouseUp"/>
             <DockPanel Grid.Row="1" Grid.Column="0">
                 <Border DockPanel.Dock="Right" BorderBrush="Gray" BorderThickness="0.4"/>
                 <StackPanel DockPanel.Dock="Top">

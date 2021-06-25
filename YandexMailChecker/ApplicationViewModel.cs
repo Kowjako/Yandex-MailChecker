@@ -67,6 +67,7 @@ namespace YandexMailChecker
 
         private static NLog.Logger logger;
 
+        private Random randomizer;
 
         private RelayCommand viewLoggerCommand;
         private RelayCommand addAccountCommand;
@@ -87,6 +88,7 @@ namespace YandexMailChecker
 
         public ApplicationViewModel(IDialogService dialogService)
         {
+            randomizer = new Random();
             logger = NLog.LogManager.GetCurrentClassLogger();
             cts = new CancellationTokenSource();
             testAccount = new TestAccount();
@@ -315,13 +317,13 @@ namespace YandexMailChecker
                     (startCheckerCommand = new RelayCommand(obj =>
                     {
                         var token = cts.Token;
-                        WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[0].address, Convert.ToInt32(loadedProxyList[0].port));
                         var tasks = new Task[loadedAccountList.Count];
                         for (var i = 0; i < loadedAccountList.Count; i++)
                         {
                             var account = loadedAccountList[i];
                             tasks[i] = Task.Factory.StartNew(() =>
                             {
+                                WebRequest.DefaultWebProxy = new WebProxy(loadedProxyList[randomizer.Next(0,loadedProxyList.Count)].address, Convert.ToInt32(loadedProxyList[randomizer.Next(0, loadedProxyList.Count)].port));
                                 var isValidate = false;
                                 isValidate = account.CheckAccount(userFilters, logger);
                                 Task.Delay(100);

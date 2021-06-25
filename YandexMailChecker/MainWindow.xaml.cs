@@ -91,5 +91,12 @@ namespace YandexMailChecker
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
+
+        private void feedbackBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            FeedbackWindow fbw = new FeedbackWindow();
+            fbw.Owner = this;
+            if (fbw.ShowDialog() == true) { }
+        }
     }
 }
