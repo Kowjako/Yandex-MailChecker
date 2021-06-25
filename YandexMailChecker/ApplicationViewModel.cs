@@ -108,6 +108,10 @@ namespace YandexMailChecker
                     {
                         Account acc = obj as Account;
                         accountList.Add(acc);
+                        using(StreamWriter sw = new StreamWriter(@"D:\YandexMailChecker\result.txt",false,Encoding.Default))
+                        {
+                            sw.WriteLineAsync($"{acc.Email}, {acc.Password}: {acc.Filters}");
+                        }
                     }));
             }
         }
