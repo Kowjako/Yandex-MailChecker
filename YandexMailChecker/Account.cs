@@ -39,7 +39,7 @@ namespace YandexMailChecker
             filters = new List<string>();
         }
 
-        public bool CheckAccount(ObservableCollection<string> userFilters)
+        public bool CheckAccount(ObservableCollection<string> userFilters, NLog.Logger logger)
         {
             try
             {
@@ -51,10 +51,12 @@ namespace YandexMailChecker
                         if (msgs.Count() != 0) filters.Add(s);
                     }
                 }
+                logger.Info($"Account is correct: {email}, {password}");
                 return true;
             }
             catch
             {
+                logger.Info($"Account isn't correct: {email}, {password}");
                 return false;   //false - blad podczas sprawdzania profilu
             }
         }
