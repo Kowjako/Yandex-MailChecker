@@ -39,11 +39,17 @@ namespace YandexMailChecker
             filters = new List<string>();
         }
 
+        
+        public Account(string email, string password, List<string> filters) : this(email,password)
+        {
+            this.filters = filters;
+        }
+
         public bool CheckAccount(ObservableCollection<string> userFilters, NLog.Logger logger)
         {
             try
             {
-                using (ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true))     //bo ImapClient trzeba usuwan (IDisposable)
+                using (ImapClient imapClient = new ImapClient("imap.yandex.ru", email, password, AuthMethods.Login, 993, true))     //bo ImapClient realizuje IDisposable
                 {
                     foreach (var s in userFilters)
                     {
