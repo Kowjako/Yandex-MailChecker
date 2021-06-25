@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -64,6 +65,10 @@ namespace YandexMailChecker
 
         private CancellationTokenSource cts;
 
+        private static NLog.Logger logger;
+
+
+        private RelayCommand viewLoggerCommand;
         private RelayCommand addAccountCommand;
         private RelayCommand testConnectionCommand;
         private RelayCommand loadDatabaseCommand;
@@ -82,15 +87,16 @@ namespace YandexMailChecker
 
         public ApplicationViewModel(IDialogService dialogService)
         {
+            logger = NLog.LogManager.GetCurrentClassLogger();
             cts = new CancellationTokenSource();
             testAccount = new TestAccount();
             userFilters = new ObservableCollection<string>();
             this.dialogService = dialogService;
             accountList = new ObservableCollection<Account>();
-            //accountList.Add(new Account("sample1@yandex.ru", "qwerty5678", new List<string>() { "Steam", "Apple" }));
-            //accountList.Add(new Account("sample2@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
-            //accountList.Add(new Account("sample3@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Showroom.pl" }));
-            //accountList.Add(new Account("sample4@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "WebMoney", "PayPal" }));
+            accountList.Add(new Account("sample1@yandex.ru", "qwerty5678", new List<string>() { "Steam", "Apple" }));
+            accountList.Add(new Account("sample2@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
+            accountList.Add(new Account("sample3@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Showroom.pl" }));
+            accountList.Add(new Account("sample4@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "WebMoney", "PayPal" }));
         }
 
         public RelayCommand AddAccountCommand
@@ -102,6 +108,22 @@ namespace YandexMailChecker
                     {
                         Account acc = obj as Account;
                         accountList.Add(acc);
+                        using(StreamWriter sw = new StreamWriter(@"D:\YandexMailChecker\result.txt",false,Encoding.Default))
+                        {
+                            sw.WriteLineAsync($"{acc.Email}, {acc.Password}: {acc.Filters}");
+                        }
+                    }));
+            }
+        }
+
+        public RelayCommand ViewLoggerCommand
+        {
+            get
+            {
+                return viewLoggerCommand ??
+                    (viewLoggerCommand = new RelayCommand(obj =>
+                    {
+                        Process.Start("explorer.exe", @"D:\YandexMailChecker\logs\");
                     }));
             }
         }
@@ -144,6 +166,7 @@ namespace YandexMailChecker
                     {
                         try
                         {
+                            logger.Info("Starting loading database");
                             if(dialogService.OpenFileDialog() == true)
                             {
                                 string record;
@@ -160,7 +183,11 @@ namespace YandexMailChecker
                         }
                         catch(Exception ex)
                         {
-                            dialogService.ShowMessage(ex.Message);
+                            logger.Error(ex);
+                        }
+                        finally
+                        {
+                            logger.Info("Database was loaded successfully");
                         }
                     }));
             }
@@ -177,6 +204,7 @@ namespace YandexMailChecker
                         string loadedFullText;
                         try
                         {
+                            logger.Info("Start opening file for change separators");
                             if(dialogService.OpenFileDialog() == true)
                             {
                                 using (StreamReader reader = new StreamReader(dialogService.FilePath))
@@ -189,12 +217,15 @@ namespace YandexMailChecker
                                 {
                                     dataWriter.Write(loadedFullText);
                                 }
-                                dialogService.ShowMessage("Splitters was changed");
                             }
                         }
                         catch (Exception ex)
                         {
-                            dialogService.ShowMessage(ex.Message);
+                            logger.Error(ex);
+                        }
+                        finally
+                        {
+                            logger.Info("Splitters was changed");
                         }
                     }));
             }
@@ -210,6 +241,7 @@ namespace YandexMailChecker
                     {
                         try
                         {
+                            logger.Info("Start opening file with proxies");
                             if (dialogService.OpenFileDialog() == true)
                             {
                                 string record;
@@ -225,7 +257,11 @@ namespace YandexMailChecker
                         }
                         catch (Exception ex)
                         {
-                            dialogService.ShowMessage(ex.Message);
+                            logger.Error(ex);
+                        }
+                        finally
+                        {
+                            logger.Info("Proxies was loaded successfully");
                         }
                     }));
             }
@@ -238,7 +274,6 @@ namespace YandexMailChecker
                 return verifyAccountCommand ??
                     (verifyAccountCommand = new RelayCommand(async obj =>
                     {
-
                         testAccount.Password = (obj as PasswordBox).Password;       //PasswordBox wystepuje jako parametr Command we View dla przycisku Verify application
                         if (testAccount.CheckEmail())
                         {
@@ -288,7 +323,7 @@ namespace YandexMailChecker
                             tasks[i] = Task.Factory.StartNew(() =>
                             {
                                 var isValidate = false;
-                                isValidate = account.CheckAccount(userFilters);
+                                isValidate = account.CheckAccount(userFilters, logger);
                                 Task.Delay(100);
 
                                 if (isValidate)
@@ -323,7 +358,7 @@ namespace YandexMailChecker
                             }
                             catch (OperationCanceledException)
                             {
-                                MessageBox.Show($"Checker was stopped by user", "Checker by @maybedot", MessageBoxButton.OK, MessageBoxImage.Information);
+                                logger.Info("Checker was stopped by user");
                             }
                         });
 

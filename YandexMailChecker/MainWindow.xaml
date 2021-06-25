@@ -94,7 +94,7 @@
                     <Button Command="{Binding LoadDatabaseCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load database " />
                     <Button Command="{Binding ChangeSeparatorsCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Change separators" />
                     <Button Command="{Binding LoadProxiesCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Load proxies " />
-                    <Button Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
+                    <Button Command="{Binding ViewLoggerCommand}" Margin="10,16,10,0" Background="DarkGray" BorderBrush="DarkGray" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="View logger " />
                     <StackPanel Orientation="Horizontal">
                         <Button Command="{Binding StartCheckerCommand}" Margin="10,16,10,0" Width="186" Foreground="White" Background="Crimson" BorderBrush="Crimson" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Start check accounts"/>
                         <Button Command="{Binding StopCheckerCommand}" Margin="10,16,10,0" Width="186" Foreground="White" Background="Blue" BorderBrush="Blue" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="Stop check accounts"/>

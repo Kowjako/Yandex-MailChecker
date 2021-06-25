@@ -15,7 +15,8 @@ namespace YandexMailChecker
         public bool OpenFileDialog()
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            if(ofd.ShowDialog() == true)
+            ofd.Filter = "Txt files (*.txt)|*.txt";
+            if (ofd.ShowDialog() == true)
             {
                 FilePath = ofd.FileName;
                 return true;
