@@ -74,13 +74,13 @@
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock DockPanel.Dock="Top" Text="Verify your account" HorizontalAlignment="Center" Margin="0,10,15,0" Style="{StaticResource textBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
-                        <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1"> 
+                        <Border Margin="10,15,0,0" BorderBrush="{Binding ElementName=lgbtBrush}" BorderThickness="1"> 
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Account" />
                         </Border>
                         <TextBox DataContext="{Binding testAccount}" Text="{Binding Login}" x:Name="loginBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Border Margin="10,15,0,0" BorderBrush="Black" BorderThickness="1">
+                        <Border Margin="10,15,0,0" BorderBrush="{Binding ElementName=lgbtBrush}" BorderThickness="1">
                             <materialDesign:PackIcon Height="30" Width="30" Kind="Key" />
                         </Border>
                         <PasswordBox x:Name="passwordBox" Width="345" FontFamily="RockWell" FontSize="16" Margin="10,0,30,0" VerticalAlignment="Bottom" />

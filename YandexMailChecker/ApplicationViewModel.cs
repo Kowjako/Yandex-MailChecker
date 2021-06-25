@@ -87,10 +87,10 @@ namespace YandexMailChecker
             userFilters = new ObservableCollection<string>();
             this.dialogService = dialogService;
             accountList = new ObservableCollection<Account>();
-            //accountList.Add(new Account("kowyako@yandex.ru", "5667309vavan+", new List<string>() { "Steam", "Apple" }));
-            //accountList.Add(new Account("andreypevniy@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
-            //accountList.Add(new Account("leanidp@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Beverly Hills" }));
-            //accountList.Add(new Account("rager13@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "BruteForce" }));
+            //accountList.Add(new Account("sample1@yandex.ru", "qwerty5678", new List<string>() { "Steam", "Apple" }));
+            //accountList.Add(new Account("sample2@yandex.ru", "pevniy2021", new List<string>() { "LeagueOfLegends", "MusicalShop" }));
+            //accountList.Add(new Account("sample3@yandex.ru", "dkaslkdalskflas", new List<string>() { "Steam", "Apple", "Showroom.pl" }));
+            //accountList.Add(new Account("sample4@yandex.ru", "qazsew123", new List<string>() { "Steam", "Apple", "WebMoney", "PayPal" }));
         }
 
         public RelayCommand AddAccountCommand
